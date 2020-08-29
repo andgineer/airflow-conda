@@ -20,8 +20,7 @@ complex data pipelines for machine learning and data science tasks.
 
 #### Running
 
-    docker rm airflow
-    docker run --name airflow -p 8080:8080 -p 5555:5555 andgineer/airflow-conda
+    docker run -p 8080:8080 -p 5555:5555 andgineer/airflow-conda
 
 #### Apache Airflow WebUI
 
@@ -29,12 +28,6 @@ You can open Apache Airflow web UI in your browser: [localhost:8080/admin/](http
 See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html)
 
 To manage Apache Airflow Worker jobs you can use Flower [localhost:5555/dashboard](http://127.0.0.1:5555/dashboard)
-
-#### Command-line interface
-
-    docker exec airflow airflow --help
-
-See [Apache Airflow CLI docs](https://airflow.apache.org/docs/stable/usage-cli.html).
 
 ### Debugging your pipelines
 
@@ -44,7 +37,7 @@ And loads Apache Airflow Examples.
 You can play with this examples for a while.
 If you need more realistic environment to debug your own pipelines you can use 
 [this example](https://github.com/andgineer/airflow/blob/master/docker-compose.yml)
-or create your own, based on this image.
+or create your own debug environment, based on this image.
 
 ### Version
 
