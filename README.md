@@ -21,14 +21,7 @@ complex data pipelines for machine learning and data science tasks.
 #### Running
 
     docker rm airflow
-    docker run --name airflow -p 8080:8080 -p 5555:5555 -v $PWD/dags:/root/airflow/dags andgineer/airflow-conda
-
-#### DAGs
-
-You can place your [DAGs](https://airflow.apache.org/docs/stable/concepts.html) into folder `dags`
-and they will be immediately available in the Apache Airflow.
-
-Also there are a number of DAG examples already preloaded from Airflow.
+    docker run --name airflow -p 8080:8080 -p 5555:5555 andgineer/airflow-conda
 
 #### Apache Airflow WebUI
 
@@ -43,15 +36,16 @@ To manage Apache Airflow Worker jobs you can use Flower [localhost:5555/dashboar
 
 See [Apache Airflow CLI docs](https://airflow.apache.org/docs/stable/usage-cli.html).
 
+### Debugging your pipelines
+
+By default the container creates local DB in `/root/airflow/airflow.db`.
+And loads Apache Airflow Examples.
+
+You can play with this examples for a while.
+If you need more realistic environment to debug your own pipelines you can use 
+[this example](https://github.com/andgineer/airflow/blob/master/docker-compose.yml)
+or create your own, based on this image.
+
 ### Version
 
 Latest tag builds Airflow 1.10.12 with Miniconda 3.
-
-### DB
-
-By default it create SQLite DB in `/root/airflow/airflow.db`.
-
-By all means do not use this configuration on production %-)
-
-See an example how to use this Docker image in 
-[more mature configuration](https://github.com/andgineer/airflow/blob/master/docker-compose.yml).

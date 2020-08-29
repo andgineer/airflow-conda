@@ -2,5 +2,5 @@
 
 airflow initdb
 airflow webserver &
-airflow flower &
-airflow worker
+airflow scheduler
+
