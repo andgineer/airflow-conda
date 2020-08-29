@@ -62,7 +62,12 @@ ENV PATH="${HOME}:${PATH}"
 # Needed to stop Gunicorn from crashing when /tmp is now mounted from host
 ENV GUNICORN_CMD_ARGS="--worker-tmp-dir /dev/shm/"
 
-# in docker-compose-dev we mount this as volume for live reload on changes for debugging
-VOLUME /etl
+# we mount this as volume for live reload on changes for debugging
+VOLUME /root/airflow/dags
+
+COPY start.sh /
+CMD ["/start.sh"]
 
 EXPOSE 8080
+EXPOSE 5555
+
