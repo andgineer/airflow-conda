@@ -32,10 +32,10 @@ Also there are a number of DAG examples already preloaded from Airflow.
 
 #### Apache Airflow WebUI
 
-You can open Apache Airflow web UI in your browser: [Airflow Admin](http://127.0.0.1:8080/admin/).
+You can open Apache Airflow web UI in your browser: [localhost:8080/admin/](http://127.0.0.1:8080/admin/).
 See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html)
 
-To manage Apache Airflow Worker jobs you can use [Flower](http://127.0.0.1:5555/dashboard)
+To manage Apache Airflow Worker jobs you can use Flower [localhost:5555/dashboard](http://127.0.0.1:5555/dashboard)
 
 #### Command-line interface
 
