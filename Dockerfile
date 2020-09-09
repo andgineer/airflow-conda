@@ -38,12 +38,13 @@ RUN apt-get update \
 RUN curl https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz \
     |  tar -C /usr/bin --strip-components=1 -xvzf - docker/docker
 
-# Install MySQL client from Oracle repositories (Debian installs mariadb)
+# Install MySQL client from Oracle repositories (Debian installs mariadb) and Oracle client dependencies
 RUN echo "deb [trusted=yes] http://repo.mysql.com/apt/debian/ stretch mysql-5.6" | tee -a /etc/apt/sources.list.d/mysql.list \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
         libmysqlclient-dev \
         mysql-client \
+        unzip libaio1 bc \
     && apt-get autoremove -yqq --purge \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -61,6 +62,11 @@ ENV PATH="${HOME}:${PATH}"
 
 # Needed to stop Gunicorn from crashing when /tmp is now mounted from host
 ENV GUNICORN_CMD_ARGS="--worker-tmp-dir /dev/shm/"
+
+# Install Oracle client
+COPY oracle-instantclient19.8-basiclite-19.8.0.0.0-1.x86_64.rpm /tmp
+COPY oracle_config.sh .
+RUN /bin/bash ./oracle_config.sh
 
 COPY start.sh /
 CMD /start.sh
