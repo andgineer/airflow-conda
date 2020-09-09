@@ -64,7 +64,7 @@ ENV PATH="${HOME}:${PATH}"
 ENV GUNICORN_CMD_ARGS="--worker-tmp-dir /dev/shm/"
 
 # Install Oracle client
-COPY oracle-instantclient19.8-basiclite-19.8.0.0.0-1.x86_64.rpm /tmp
+COPY instantclient-basiclite-linux.x64-19.8.0.0.0dbru.zip /tmp
 COPY oracle_config.sh .
 RUN /bin/bash ./oracle_config.sh
 
