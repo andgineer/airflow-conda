@@ -1,17 +1,12 @@
 [Apache Airflow](https://airflow.apache.org/docs/stable/) is a workflow management platform. 
 This makes it easier to build data pipelines, monitor them, and perform ETL operations. 
 
-Airflow pipelines are configuration as Python code, allowing for dynamic pipeline generation. 
+Airflow pipelines are configured as Python code, allowing for dynamic pipeline generation. 
 They are lean and explicit.
-Airflow has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers. 
+Airflow has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers.
 
-But you can run it on your laptop.
-
-This Docker container ships Airflow based on Anaconda (miniconda3) to make 
-running machine learning pipelines and data science tasks seamless. 
-
-Anaconda is an open source Python distribution for data science, machine learning, 
-and large-scale data processing tasks with over 1,400 packages. 
+This [Docker container](https://hub.docker.com/repository/docker/andgineer/airflow-conda/general)
+allows you to run it on your laptop. It ships Airflow based on Anaconda (miniconda3). 
 
 Running Airflow on the Anaconda environment provides users with a simple and robust tool for building 
 complex data pipelines for machine learning and data science tasks. 
@@ -22,15 +17,15 @@ complex data pipelines for machine learning and data science tasks.
 
     docker run -p 8080:8080 andgineer/airflow-conda
 
-#### Default user
-
-login: admin
-password: admin
-
 #### Apache Airflow WebUI
 
 You can open Apache Airflow web UI in your browser: [localhost:8080/admin/](http://127.0.0.1:8080/admin/).
 See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html)
+
+#### Default user
+
+- **login:** admin 
+- **password:** admin
 
 ### Debugging your pipelines
 
