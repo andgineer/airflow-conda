@@ -31,6 +31,7 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends curl \
         freetds-bin  krb5-user ldap-utils libffi7 libsasl2-2 libsasl2-modules libssl1.1 locales  \
         lsb-release sasl2-bin sqlite3 unixodbc libsasl2-dev libkrb5-dev build-essential \
+        python3-dev libmemcached-dev libldap2-dev libzbar-dev tox lcov valgrind \
     && apt-get autoremove -yqq --purge \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
@@ -51,10 +52,9 @@ RUN echo "deb [trusted=yes] http://repo.mysql.com/apt/debian/ stretch mysql-5.6"
 RUN conda install pip \
     && pip install uvicorn gunicorn
 
-COPY airflow-1.10.12-constraints-3.7.txt ${AIRFLOW_HOME}/
 RUN pip install \
- apache-airflow[all]==1.10.12 \
- --constraint "${AIRFLOW_HOME}/airflow-1.10.12-constraints-3.7.txt"
+ apache-airflow[all]==2.6.0 \
+ --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.6.0/constraints-3.7.txt"
 
 RUN register-python-argcomplete airflow >> ~/.bashrc
 
@@ -72,5 +72,3 @@ COPY start.sh /
 CMD /start.sh
 
 EXPOSE 8080
-
-
