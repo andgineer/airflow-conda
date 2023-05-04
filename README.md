@@ -22,6 +22,11 @@ complex data pipelines for machine learning and data science tasks.
 
     docker run -p 8080:8080 andgineer/airflow-conda
 
+#### Default user
+
+login: admin
+password: admin
+
 #### Apache Airflow WebUI
 
 You can open Apache Airflow web UI in your browser: [localhost:8080/admin/](http://127.0.0.1:8080/admin/).
