@@ -36,11 +36,11 @@ RUN apt-get update \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-RUN curl https://download.docker.com/linux/static/stable/x86_64/docker-19.03.9.tgz \
+RUN curl https://download.docker.com/linux/static/stable/x86_64/docker-24.0.6.tgz \
     |  tar -C /usr/bin --strip-components=1 -xvzf - docker/docker
 
 # Install MySQL client from Oracle repositories (Debian installs mariadb) and Oracle client dependencies
-RUN echo "deb [trusted=yes] http://repo.mysql.com/apt/debian/ stretch mysql-5.6" | tee -a /etc/apt/sources.list.d/mysql.list \
+RUN echo "deb [trusted=yes] http://repo.mysql.com/apt/debian/ stretch mysql-8.0" | tee -a /etc/apt/sources.list.d/mysql.list \
     && apt-get update \
     && apt-get install --no-install-recommends -y \
         libmysqlclient-dev \
@@ -53,8 +53,8 @@ RUN conda install pip \
     && pip install uvicorn gunicorn
 
 RUN pip install \
- apache-airflow[all]==2.6.0 \
- --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.6.0/constraints-3.7.txt"
+ apache-airflow[all]==2.7.2 \
+ --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.2/constraints-3.8.txt"
 
 RUN register-python-argcomplete airflow >> ~/.bashrc
 
@@ -64,7 +64,7 @@ ENV PATH="${HOME}:${PATH}"
 ENV GUNICORN_CMD_ARGS="--worker-tmp-dir /dev/shm/"
 
 # Install Oracle client
-COPY instantclient-basiclite-linux.x64-19.8.0.0.0dbru.zip /tmp
+COPY instantclient-basiclite-linux.x64-21.12.0.0.0dbru.zip /tmp
 COPY oracle_config.sh .
 RUN /bin/bash ./oracle_config.sh
 
