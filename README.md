@@ -1,47 +1,40 @@
 [![Docker Automated build](https://img.shields.io/docker/image-size/andgineer/airflow-conda)](https://hub.docker.com/r/andgineer/airflow-conda)
 
-[Apache Airflow](https://airflow.apache.org/docs/stable/) is a workflow management platform. 
-This makes it easier to build data pipelines, monitor them, and perform ETL operations. 
+# Dockerized Apache Airflow 2 with Anaconda
 
-Airflow pipelines are configured as Python code, allowing for dynamic pipeline generation. 
-They are lean and explicit.
-Airflow has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers.
+This repository offers a [Docker container](https://hub.docker.com/repository/docker/andgineer/airflow-conda/general) 
+to run Airflow 2 on your local machine, using an Anaconda (miniconda3) environment. 
 
-This [Docker container](https://hub.docker.com/repository/docker/andgineer/airflow-conda/general)
-allows you to run it on your laptop. It ships Airflow 2 based on Anaconda (miniconda3) with a number of
-useful staff like Pandas, PyArrow, Celery, adapters for Redis, Postgres.
+It comes with handy libraries and tools like Pandas, PyArrow, and Celery, as well as adapters for Redis and Postgres.
 
-Running Airflow on the Anaconda environment provides users with a simple and robust tool for building 
-complex data pipelines for machine learning and data science tasks. 
-As a bonus I included super-fast conda replacement - mamba, just replace `conda` with `mamba` in your commands and you will be
-surfrised how fast it is.
+## Features
+* **Airflow 2**: 
+Easy management and scaling with a modular setup and a message queue.
+* **Anaconda Environment**: 
+Simplify setup and execution with Anaconda managing dependencies.
+* **Faster with Mamba**: 
+Speed up dependency resolution by swapping `conda` with `mamba` in your commands.
 
-### Usage
+# Usage
 
-#### Running
+## Start the Container
 
     docker run -p 8080:8080 andgineer/airflow-conda
 
-#### Apache Airflow WebUI
+## Access Apache Airflow WebUI
 
-You can open Apache Airflow web UI in your browser: [localhost:8080/admin/](http://127.0.0.1:8080/admin/).
-See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html)
+Open the Apache Airflow web UI in your browser: [localhost:8080/admin/](http://127.0.0.1:8080/admin/). 
+See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html) for more.
 
-#### Default user
+## Default Login
 
-- **login:** admin 
-- **password:** admin
+- **Username:** admin 
+- **Password:** admin
 
-### Debugging your pipelines
+## Airflow DAGs
 
-By default the container creates local DB in `/root/airflow/airflow.db`.
-And loads Apache Airflow tutorial examples.
+The container initially sets up a local DB at `/root/airflow/airflow.db` and loads some tutorial examples from 
+Apache Airflow. 
 
-You can play with this examples for a while.
-If you need more realistic environment to debug your own pipelines you can use 
-[this example](https://github.com/andgineer/airflow/blob/master/docker-compose.yml)
-or create your own debug environment, based on this image.
-
-### Version
-
-Latest tag builds Airflow 1.10.12 with Miniconda 3.
+For a more realistic environment, with a local DB and DAGs mounted into the container,
+see [this example](https://github.com/andgineer/airflow/blob/master/docker-compose.yml).
