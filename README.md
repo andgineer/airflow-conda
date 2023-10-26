@@ -2,7 +2,7 @@
 
 # Dockerized Apache Airflow 2 with Anaconda
 
-This repository offers a [Docker container](https://hub.docker.com/repository/docker/andgineer/airflow-conda/general) 
+This repository offers a [Docker container](https://hub.docker.com/r/andgineer/airflow-conda) 
 to run Airflow 2 on your local machine, using an Anaconda (miniconda3) environment. 
 
 It comes with handy libraries and tools like Pandas, PyArrow, and Celery, as well as adapters for Redis and Postgres.
