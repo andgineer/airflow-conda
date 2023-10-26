@@ -1,3 +1,5 @@
+[![Docker Automated build](https://img.shields.io/docker/image-size/andgineer/airflow-conda)](https://hub.docker.com/r/andgineer/airflow-conda)
+
 [Apache Airflow](https://airflow.apache.org/docs/stable/) is a workflow management platform. 
 This makes it easier to build data pipelines, monitor them, and perform ETL operations. 
 
