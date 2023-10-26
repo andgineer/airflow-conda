@@ -6,10 +6,13 @@ They are lean and explicit.
 Airflow has a modular architecture and uses a message queue to orchestrate an arbitrary number of workers.
 
 This [Docker container](https://hub.docker.com/repository/docker/andgineer/airflow-conda/general)
-allows you to run it on your laptop. It ships Airflow based on Anaconda (miniconda3). 
+allows you to run it on your laptop. It ships Airflow 2 based on Anaconda (miniconda3) with a number of
+useful staff like Pandas, PyArrow, Celery, adapters for Redis, Postgres.
 
 Running Airflow on the Anaconda environment provides users with a simple and robust tool for building 
 complex data pipelines for machine learning and data science tasks. 
+As a bonus I included super-fast conda replacement - mamba, just replace `conda` with `mamba` in your commands and you will be
+surfrised how fast it is.
 
 ### Usage
 
