@@ -23,7 +23,7 @@ Speed up dependency resolution by swapping `conda` with `mamba` in your commands
 
 ## Access Apache Airflow WebUI
 
-Open the Apache Airflow web UI in your browser: [localhost:8080/admin/](http://127.0.0.1:8080/admin/). 
+Open the Apache Airflow web UI in your browser: [localhost:8080/](http://127.0.0.1:8080/). 
 See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html) for more.
 
 ## Default Login
