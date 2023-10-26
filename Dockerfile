@@ -50,11 +50,12 @@ RUN echo "deb [trusted=yes] http://repo.mysql.com/apt/debian/ stretch mysql-8.0"
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN conda install pip \
-    && pip install uvicorn gunicorn
+  && conda install mamba -c conda-forge \
+  && mamba install -c conda-forge uvicorn gunicorn
 
 RUN pip install \
- apache-airflow[all]==2.7.2 \
- --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.2/constraints-3.8.txt"
+ apache-airflow[celery,postgres,pandas,redis]==2.7.2 \
+ --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.2/constraints-3.11.txt"
 
 RUN register-python-argcomplete airflow >> ~/.bashrc
 
