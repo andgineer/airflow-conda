@@ -28,7 +28,8 @@ RUN echo http_proxy: ${http_proxy} \
     && echo HTTPS_PROXY: ${HTTPS_PROXY}
 
 RUN apt-get update \
-    && apt-get install -y --no-install-recommends curl \
+    && apt-get install -y --no-install-recommends \
+        curl unzip libaio1 bc \
         freetds-bin  krb5-user ldap-utils libffi7 libsasl2-2 libsasl2-modules libssl1.1 locales  \
         lsb-release sasl2-bin sqlite3 unixodbc libsasl2-dev libkrb5-dev build-essential \
         python3-dev libmemcached-dev libldap2-dev libzbar-dev tox lcov valgrind \
@@ -42,20 +43,21 @@ RUN curl https://download.docker.com/linux/static/stable/x86_64/docker-24.0.6.tg
 # Install MySQL client from Oracle repositories (Debian installs mariadb) and Oracle client dependencies
 RUN echo "deb [trusted=yes] http://repo.mysql.com/apt/debian/ stretch mysql-8.0" | tee -a /etc/apt/sources.list.d/mysql.list \
     && apt-get update \
-    && apt-get install --no-install-recommends -y \
-        libmysqlclient-dev \
-        mysql-client \
-        unzip libaio1 bc \
+    && apt-get install -y default-libmysqlclient-dev default-mysql-client \
     && apt-get autoremove -yqq --purge \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
+# Install mamba
 RUN conda install pip \
+#  && conda config --set ssl_verify false \  # build behind corporate proxy
   && conda install mamba -c conda-forge \
   && mamba install -c conda-forge uvicorn gunicorn
 
+# Install Airflow
 RUN pip install \
- apache-airflow[celery,postgres,pandas,redis]==2.7.2 \
- --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.7.2/constraints-3.11.txt"
+# --trusted-host files.pythonhosted.org --trusted-host raw.githubusercontent.com \  # build behind corporate proxy
+ apache-airflow[celery,postgres,pandas,redis,mysql]==2.8.2 \
+ --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.2/constraints-3.11.txt"
 
 RUN register-python-argcomplete airflow >> ~/.bashrc
 
