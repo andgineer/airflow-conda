@@ -2,33 +2,30 @@
 
 # Dockerized Apache Airflow 3 with Anaconda
 
-This repository offers a [Docker container](https://hub.docker.com/r/andgineer/airflow-conda) 
-to run Airflow 3 on your local machine, using an Anaconda (miniconda3) environment. 
-
-It comes with handy libraries and tools like Pandas, PyArrow, and Celery, as well as adapters for Redis and Postgres.
+A [Docker container](https://hub.docker.com/r/andgineer/airflow-conda) for running Apache Airflow 3
+in a miniconda3 environment with pre-installed data science libraries (Pandas, PyArrow) and database
+adapters (MySQL, PostgreSQL, Redis, Celery).
 
 ## Features
-* **Airflow 3**: 
-Easy management and scaling with a modular setup and a message queue.
-* **Anaconda Environment**: 
-Simplify setup and execution with Anaconda managing dependencies.
-* **Faster with Mamba**: 
-Speed up dependency resolution by swapping `conda` with `mamba` in your commands.
+* **Airflow 3**: Latest version with improved modularity and task execution
+* **Pre-configured**: Includes essential libraries and database adapters out of the box
+* **Non-root user**: Runs securely as unprivileged user (UID 50000)
 
 # Usage
 
 ## Start the Container
 
-    # Latest version (Airflow 3.0.4)
+    # Latest version
     docker run -p 8080:8080 andgineer/airflow-conda:latest
-    
+
     # Specific Airflow version
     docker run -p 8080:8080 andgineer/airflow-conda:airflow-3.0.4
 
 ## Access Apache Airflow WebUI
 
-Open the Apache Airflow web UI in your browser: [localhost:8080/](http://127.0.0.1:8080/). 
-See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html) for more.
+Open the Airflow web UI in your browser: [http://localhost:8080](http://localhost:8080)
+
+See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html) for more details.
 
 ## Default Login
 
@@ -37,8 +34,8 @@ See [Apache Airflow UI docs](https://airflow.apache.org/docs/stable/ui.html) for
 
 ## Airflow DAGs
 
-The container initially sets up a local DB at `/root/airflow/airflow.db` and loads some tutorial examples from 
-Apache Airflow. 
+The container initializes a SQLite database at `/home/airflow/airflow/airflow.db` and includes
+tutorial example DAGs from Apache Airflow.
 
-For a more realistic environment, with a local DB and DAGs mounted into the container,
-see [this example](https://github.com/andgineer/airflow/blob/master/docker-compose.yml).
+For a production-like setup with mounted DAGs and persistent database, see the
+[docker-compose.yml example](https://github.com/andgineer/airflow/blob/master/docker-compose.yml).
