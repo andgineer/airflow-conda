@@ -11,13 +11,9 @@ on:
   workflow_dispatch:
     inputs:
       airflow_version:
-        description: 'Airflow version to build'
+        description: 'Airflow version to build (leave empty to use version from Dockerfile)'
         required: false
-        default: '3.0.4'
         type: string
-
-env:
-  DEFAULT_AIRFLOW_VERSION: '3.0.4'
 
 jobs:
   build:
@@ -44,10 +40,14 @@ jobs:
       - name: Determine Airflow version
         id: version
         run: |
+          # Get default version from Dockerfile
+          DEFAULT_VERSION=$(grep 'ARG AIRFLOW_VERSION' Dockerfile | cut -d'=' -f2)
+
+          # Use workflow input if provided, otherwise use Dockerfile version
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && -n "${{ github.event.inputs.airflow_version }}" ]]; then
             AIRFLOW_VERSION="${{ github.event.inputs.airflow_version }}"
           else
-            AIRFLOW_VERSION="${{ env.DEFAULT_AIRFLOW_VERSION }}"
+            AIRFLOW_VERSION="${DEFAULT_VERSION}"
           fi
           echo "airflow_version=${AIRFLOW_VERSION}" >> $GITHUB_OUTPUT
 
