@@ -56,22 +56,36 @@ jobs:
         run: |
           AIRFLOW_VERSION=${{ steps.version.outputs.airflow_version }}
           TAGS="${{ secrets.DOCKER_HUB_USERNAME }}/airflow-conda:airflow-${AIRFLOW_VERSION}"
-          
+
           # Add latest tag for master branch
           if [[ "${{ github.ref }}" == "refs/heads/master" ]]; then
             TAGS="${TAGS},${{ secrets.DOCKER_HUB_USERNAME }}/airflow-conda:latest"
           fi
-          
+
           # Add version tag if this is a git tag
           if [[ "${{ github.ref_type }}" == "tag" ]]; then
             TAG_NAME=${GITHUB_REF#refs/tags/}
             TAGS="${TAGS},${{ secrets.DOCKER_HUB_USERNAME }}/airflow-conda:${TAG_NAME}"
           fi
-          
+
           echo "tags=${TAGS}" >> $GITHUB_OUTPUT
+
+      - name: Check if release exists
+        id: check_release
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        run: |
+          if gh release view airflow-${{ steps.version.outputs.airflow_version }} &>/dev/null; then
+            echo "exists=true" >> $GITHUB_OUTPUT
+            echo "::warning::Release airflow-${{ steps.version.outputs.airflow_version }} already exists, skipping Docker build and push"
+          else
+            echo "exists=false" >> $GITHUB_OUTPUT
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push to docker hub
         id: build
+        if: github.event_name == 'pull_request' || steps.check_release.outputs.exists == 'false'
         uses: docker/build-push-action@v5
         with:
           context: ./
@@ -87,11 +101,11 @@ jobs:
             linux/arm64
 
       - name: Image digest
-        if: github.event_name != 'pull_request'
+        if: github.event_name != 'pull_request' && steps.check_release.outputs.exists == 'false'
         run: echo ${{ steps.build.outputs.digest }}
 
       - name: Create Release
-        if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/master' && github.event_name == 'push' && steps.check_release.outputs.exists == 'false'
         id: create_release
         uses: actions/create-release@v1
         env:
