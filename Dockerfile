@@ -4,7 +4,7 @@
 FROM continuumio/miniconda3:25.1.1-2
 
 # Version arguments
-ARG AIRFLOW_VERSION=3.0.4
+ARG AIRFLOW_VERSION=3.0.6
 
 # set build-time proxy settings from docker-compose.yaml#args
 ARG no_proxy
