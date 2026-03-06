@@ -1,10 +1,9 @@
-# Use specific miniconda3 version with Python 3.12 (Airflow 3.0.4 supports Python 3.9-3.12, not 3.13)
-# Latest Python 3.12 version as of Feb 2025: 25.1.1-2
-# Check for updates at: https://github.com/ContinuumIO/docker-images/releases
-FROM continuumio/miniconda3:25.1.1-2
+# Use a versioned miniconda3 base image.
+# Check tags at: https://hub.docker.com/r/continuumio/miniconda3/tags
+FROM continuumio/miniconda3:v25.11.1
 
 # Version arguments
-ARG AIRFLOW_VERSION=3.0.6
+ARG AIRFLOW_VERSION=3.1.7
 
 # set build-time proxy settings from docker-compose.yaml#args
 ARG no_proxy
