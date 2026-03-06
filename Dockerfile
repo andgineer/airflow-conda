@@ -35,7 +35,7 @@ RUN groupadd -g ${AIRFLOW_GID} airflow \
     && apt-get update \
     && apt-get install -y --no-install-recommends \
         curl unzip libaio1 bc tox lcov valgrind \
-        freetds-bin  krb5-user ldap-utils libsasl2-2 libsasl2-modules libssl3 locales  \
+        freetds-bin  krb5-user ldap-utils libsasl2-2 libsasl2-modules libssl-dev locales  \
         lsb-release sasl2-bin sqlite3 unixodbc libsasl2-dev libkrb5-dev build-essential \
         python3-dev libmemcached-dev libldap2-dev libzbar-dev default-libmysqlclient-dev \
     && apt-get autoremove -yqq --purge \
