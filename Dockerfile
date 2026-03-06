@@ -33,9 +33,11 @@ RUN groupadd -g ${AIRFLOW_GID} airflow \
     && useradd -u ${AIRFLOW_UID} -g airflow -m -s /bin/bash airflow \
     # Install system dependencies
     && apt-get update \
+    && LIBAIO_PKG="$(apt-cache show libaio1t64 >/dev/null 2>&1 && echo libaio1t64 || echo libaio1)" \
+    && LIBSASL2_PKG="$(apt-cache show libsasl2-2t64 >/dev/null 2>&1 && echo libsasl2-2t64 || echo libsasl2-2)" \
     && apt-get install -y --no-install-recommends \
-        curl unzip libaio1 bc tox lcov valgrind \
-        freetds-bin  krb5-user ldap-utils libsasl2-2 libsasl2-modules libssl-dev locales  \
+        curl unzip "${LIBAIO_PKG}" bc tox lcov valgrind \
+        freetds-bin krb5-user ldap-utils "${LIBSASL2_PKG}" libsasl2-modules libssl-dev locales \
         lsb-release sasl2-bin sqlite3 unixodbc libsasl2-dev libkrb5-dev build-essential \
         python3-dev libmemcached-dev libldap2-dev libzbar-dev default-libmysqlclient-dev \
     && apt-get autoremove -yqq --purge \
